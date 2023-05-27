@@ -9,21 +9,21 @@ def generate_random_points(n: int):
 
 
 def get_list_points_x(list_points):
-    list_x=[]
+    list_x = []
     for i in range(len(list_points)):
         list_x.append(list_points[i].x)
     return list_x
 
 
 def get_list_points_y(list_points):
-    list_y=[]
+    list_y = []
     for i in range(len(list_points)):
         list_y.append(list_points[i].y)
     return list_y
 
 
 def get_list_points_z(list_points):
-    list_z=[]
+    list_z = []
     for i in range(len(list_points)):
         list_z.append(list_points[i].z)
     return list_z

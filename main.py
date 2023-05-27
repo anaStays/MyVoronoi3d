@@ -49,11 +49,27 @@ ax_3d2.set_zlabel('z')
 if __name__ == '__main__':
     n = 5
     list_points = mp3.generate_random_points(n)
-    face = mf3.MyFace3d()
-    draw_points(face.points)
-    draw_lines(face.contour)
-    draw_lines(face.lines)
-    
+    # face = mf3.MyFace3d()
+    # draw_points(face.points)
+    # draw_lines(face.contour)
+    # draw_lines(face.lines)
+    list_floats = [
+        -0.500000, 0.500000, 0.500000,
+        -0.500000, -0.500000, 0.500000,
+        -0.500000, 0.500000, -0.500000,
+        -0.500000, -0.500000, -0.500000,
+        0.500000, 0.500000, 0.500000,
+        0.500000, -0.500000, 0.500000,
+        0.500000, 0.500000, -0.500000,
+        0.500000, -0.500000, -0.500000
+    ]
+
+    lp = mf3.get_list_points_from_list_floats(list_floats)
+    print(lp)
+    # print(list_floats)
+    lc = mf3.get_list_contour_from_list_points(lp)
+    draw_points(lp)
+    draw_lines(lc)
     # line = ml3.MyLine3d(list_points[0], list_points[1])
 
     plt.show()

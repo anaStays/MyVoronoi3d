@@ -12,6 +12,24 @@ def change_coordinate_fix(fix, fix_x, fix_y, fix_z, point):
         point.z = fix_z
 
 
+def get_list_points_from_list_floats(list_floats):
+    list_points = []
+    for i in range(0, len(list_floats), 3):
+        list_points.append(mp3.MyPoint3d(list_floats[i], list_floats[i+1], list_floats[i+2]))
+    return list_points
+
+
+def get_list_contour_from_list_points(list_points):
+    contour = []
+    for i in range(len(list_points)-1):
+        contour.append(ml3.MyLine3d(list_points[i], list_points[i+1]))
+    contour.append(ml3.MyLine3d(list_points[len(list_points)-1], list_points[0]))
+    return contour
+
+
+# Метод получения граней через список точек и индексов контуров
+
+
 class MyFace3d:
     def __init__(self, contour=[], lines=[], points=[]):
         self.__points = []
