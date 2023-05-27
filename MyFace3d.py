@@ -24,6 +24,30 @@ class MyFace3d:
             self.__lines = lines
             self.__points = points
 
+    @property
+    def points(self):
+        return self.__points
+
+    @points.setter
+    def points(self, points):
+        self.__points = points
+
+    @property
+    def contour(self):
+        return self.__contour
+
+    @contour.setter
+    def contour(self, contour):
+        self.__contour = contour
+
+    @property
+    def lines(self):
+        return self.__contour
+
+    @lines.setter
+    def lines(self, lines):
+        self.__lines = lines
+
     def set_random_face(self):
         self.__contour = []
         self.__lines = []
@@ -52,26 +76,4 @@ class MyFace3d:
         for i in range(count):
             self.__points.append(list_lines_contour[i].point1)
 
-        @property
-        def points(self):
-            return self.__points
 
-        @points.setter
-        def point1(self, points):
-            self.__points = points
-
-        @property
-        def contour(self):
-            return self.__contour
-
-        @points.setter
-        def point1(self, contour):
-            self.__contour = contour
-
-        @property
-        def lines(self):
-            return self.__contour
-
-        @points.setter
-        def point1(self, lines):
-            self.__lines = lines
