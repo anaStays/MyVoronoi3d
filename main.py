@@ -7,12 +7,13 @@ import MyLine3d as ml3
 import random
 import MyFace3d as mf3
 
+
 def get_random_color():
-    c = random.randint(100,999)
+    c = random.randint(100, 999)
     return '#' + str(c)
 
 
-def draw_line(line, my_color):
+def draw_line(line, my_color='-1'):
     if my_color=='-1':
         my_color = get_random_color()
     x, y, z = ml3.get_coordinates_line_xyz(line)
@@ -21,6 +22,8 @@ def draw_line(line, my_color):
 
 
 def draw_lines(list_lines, my_color='-1'):
+    if my_color=='-1':
+        my_color = get_random_color()
     for i in range(len(list_lines)):
         draw_line(list_lines[i], my_color)
 
@@ -46,11 +49,11 @@ ax_3d2.set_zlabel('z')
 if __name__ == '__main__':
     n = 5
     list_points = mp3.generate_random_points(n)
-    # face = mf3.MyFace3d()
-    # face.set_random_face()
-    # draw_points(face.points)
-    # draw_lines(face.contour)
-    # draw_lines(face.lines)
-    draw_points(list_points)
+    face = mf3.MyFace3d()
+    draw_points(face.points)
+    draw_lines(face.contour)
+    draw_lines(face.lines)
+    
+    # line = ml3.MyLine3d(list_points[0], list_points[1])
 
     plt.show()

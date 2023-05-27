@@ -8,21 +8,21 @@ def generate_random_points(n: int):
     return res
 
 
-def get_list_x(list_points):
+def get_list_points_x(list_points):
     list_x=[]
     for i in range(len(list_points)):
         list_x.append(list_points[i].x)
     return list_x
 
 
-def get_list_y(list_points):
+def get_list_points_y(list_points):
     list_y=[]
     for i in range(len(list_points)):
         list_y.append(list_points[i].y)
     return list_y
 
 
-def get_list_z(list_points):
+def get_list_points_z(list_points):
     list_z=[]
     for i in range(len(list_points)):
         list_z.append(list_points[i].z)
@@ -30,7 +30,7 @@ def get_list_z(list_points):
 
 
 def get_coordinates_points_xyz(list_points):
-    return get_list_x(list_points), get_list_y(list_points), get_list_z(list_points)
+    return get_list_points_x(list_points), get_list_points_y(list_points), get_list_points_z(list_points)
 
 
 class MyPoint3d:
@@ -38,15 +38,42 @@ class MyPoint3d:
         if x == None and y == None and z == None:
             self.set_random_point()
         else:
-            self.x = x
-            self.y = y
-            self.z = z
+            self.__x = x
+            self.__y = y
+            self.__z = z
+
+    @property
+    def x(self):
+        return self.__x
+
+    @x.setter
+    def x(self, x):
+        self.__x = x
+
+    @property
+    def y(self):
+        return self.__y
+
+    @y.setter
+    def y(self, y):
+        self.__y = y
+
+    @property
+    def z(self):
+        return self.__z
+
+    @z.setter
+    def z(self, z):
+        self.__z = z
 
     def __repr__(self):
-        print(f"{self.x}, {self.y}, {self.z}")
+        print(f"{self.__x}, {self.__y}, {self.__z}")
+        return ''
+
+
 
     def set_random_point(self):
-        self.x = random.uniform(0, 2)
-        self.y = random.uniform(0, 2)
-        self.z = random.uniform(0, 2)
+        self.__x = random.uniform(0, 2)
+        self.__y = random.uniform(0, 2)
+        self.__z = random.uniform(0, 2)
 
