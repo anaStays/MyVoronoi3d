@@ -4,6 +4,7 @@ import MyPoint3d as mp3
 import MyLine3d as ml3
 import numpy as np
 
+
 def change_coordinate_fix(fix, fix_x, fix_y, fix_z, point):
     if fix == 0:
         point.x = fix_x
@@ -63,7 +64,7 @@ def generate_list_points(first_point, count, fix, fix_x, fix_y, fix_z):
         new_list.append(tp)
     new_list = sorted(new_list, key=attrgetter('x', 'y', 'z'))
     # new_list.sort(key=lambda point: point.x)
-    print(new_list)
+    # print(new_list)
     return new_list
 
 
@@ -79,7 +80,23 @@ def is_face_convex(list_points, fix):
         flag = 0
     return flag
 
-# Метод получения граней через список точек и индексов контуров
+
+# Метод получения граней через список точек и индексов граней
+def get_face_from_list_points_and_indexes(list_points, list_indexes):
+    list_faces = []
+    n = len(list_indexes)
+    for i in range(n):
+        contour = []
+        points = []
+        m = len(list_indexes[i])
+        for j in range(m):
+            points.append(list_points[list_indexes[i][j]])
+            if j < m-1:
+                contour.append(ml3.MyLine3d(list_points[list_indexes[i][j]], list_points[list_indexes[i][j+1]]))
+        contour.append(ml3.MyLine3d(list_points[list_indexes[i][m-1]], list_points[list_indexes[i][0]]))
+        list_faces.append(MyFace3d(contour, contour, points))
+    return list_faces
+
 
 # Хранить список смежных граней, пригодится при рандомной генерации фигур
 class MyFace3d:
@@ -167,5 +184,5 @@ class MyFace3d:
         for i in range(0, count-1):
             self.__contour.append(ml3.MyLine3d(list_points[i], list_points[i+1]))
         self.__contour.append(ml3.MyLine3d(list_points[count-1], list_points[0]))
-        self.__lines=self.__contour
-        self.__points=list_points
+        self.__lines = self.__contour
+        self.__points = list_points

@@ -14,15 +14,15 @@ def get_random_color():
 
 
 def draw_line(line, my_color='-1'):
-    if my_color=='-1':
+    if my_color == '-1':
         my_color = get_random_color()
     x, y, z = ml3.get_coordinates_line_xyz(line)
-    ax_3d.plot(x, y, z, color = my_color)
-    ax_3d.scatter(x, y, z, color = my_color)
+    ax_3d.plot(x, y, z, color=my_color)
+    ax_3d.scatter(x, y, z, color=my_color)
 
 
 def draw_lines(list_lines, my_color='-1'):
-    if my_color=='-1':
+    if my_color == '-1':
         my_color = get_random_color()
     for i in range(len(list_lines)):
         draw_line(list_lines[i], my_color)
@@ -35,10 +35,18 @@ def draw_points(list_points, my_color='-1'):
     ax_3d.scatter(x, y, z, color=my_color)
 
 
+def draw_face(face, my_color='-1'):
+    if my_color == '-1':
+        my_color = get_random_color()
+    draw_points(face.points, my_color)
+    draw_lines(face.contour, my_color)
+    draw_lines(face.lines, my_color)
+
+
 fig = plt.figure(figsize=(11, 6))
 gs = GridSpec(ncols=11, nrows=6, figure=fig)
-ax_3d = fig.add_subplot(gs[0:6,0:5], projection='3d')
-ax_3d2 = fig.add_subplot(gs[0:6,6:], projection='3d')
+ax_3d = fig.add_subplot(gs[0:6, 0:5], projection='3d')
+ax_3d2 = fig.add_subplot(gs[0:6, 6:], projection='3d')
 ax_3d.set_xlabel('x')
 ax_3d.set_ylabel('y')
 ax_3d.set_zlabel('z')
@@ -49,28 +57,37 @@ ax_3d2.set_zlabel('z')
 if __name__ == '__main__':
     n = 5
     list_points = mp3.generate_random_points(n)
-    face = mf3.MyFace3d()
-    draw_points(face.points)
-    draw_lines(face.contour)
-    draw_lines(face.lines)
+    # face = mf3.MyFace3d()
+    # draw_points(face.points)
+    # draw_lines(face.contour)
+    # draw_lines(face.lines)
 
-    # list_floats = [
-    #     -0.500000, 0.500000, 0.500000,
-    #     -0.500000, -0.500000, 0.500000,
-    #     -0.500000, 0.500000, -0.500000,
-    #     -0.500000, -0.500000, -0.500000,
-    #     0.500000, 0.500000, 0.500000,
-    #     0.500000, -0.500000, 0.500000,
-    #     0.500000, 0.500000, -0.500000,
-    #     0.500000, -0.500000, -0.500000
-    # ]
-    #
-    # lp = mf3.get_list_points_from_list_floats(list_floats)
+    list_floats = [
+        -0.500000, 0.500000, 0.500000,  # 0
+        -0.500000, -0.500000, 0.500000,  # 1
+        -0.500000, 0.500000, -0.500000,  # 2
+        -0.500000, -0.500000, -0.500000,  # 3
+        0.500000, 0.500000, 0.500000,  # 4
+        0.500000, -0.500000, 0.500000,  # 5
+        0.500000, 0.500000, -0.500000,  # 6
+        0.500000, -0.500000, -0.500000  # 7
+    ]
+    lp = mf3.get_list_points_from_list_floats(list_floats)
+    list_indexes = [
+        [3, 2, 6, 7],
+        [3, 2, 0, 1],
+        [3, 1, 5, 7],
+        [2, 0, 4, 6],
+        [6, 7, 5, 4],
+        [5, 4, 0, 1]
+    ]
+    list_faces = mf3.get_face_from_list_points_and_indexes(lp, list_indexes)
+    for i in range(len(list_faces)):
+        draw_face(list_faces[i], '#555')
     # print(lp)
     # print(list_floats)
     # lc = mf3.get_list_contour_from_list_points(lp)
-    # draw_points(lp)
+    draw_points(lp)
     # draw_lines(lc)
     # line = ml3.MyLine3d(list_points[0], list_points[1])
-
     plt.show()
