@@ -17,20 +17,20 @@ def change_coordinate_fix(fix, fix_x, fix_y, fix_z, point):
 def get_list_points_from_list_floats(list_floats):
     list_points = []
     for i in range(0, len(list_floats), 3):
-        list_points.append(mp3.MyPoint3d(list_floats[i], list_floats[i+1], list_floats[i+2]))
+        list_points.append(mp3.MyPoint3d(list_floats[i], list_floats[i + 1], list_floats[i + 2]))
     return list_points
 
 
 def get_list_contour_from_list_points(list_points):
     contour = []
-    for i in range(len(list_points)-1):
-        contour.append(ml3.MyLine3d(list_points[i], list_points[i+1]))
-    contour.append(ml3.MyLine3d(list_points[len(list_points)-1], list_points[0]))
+    for i in range(len(list_points) - 1):
+        contour.append(ml3.MyLine3d(list_points[i], list_points[i + 1]))
+    contour.append(ml3.MyLine3d(list_points[len(list_points) - 1], list_points[0]))
     return contour
 
 
 def get_vector(point1, point2):
-    return mp3.MyPoint3d(point2.x-point1.x, point2.y-point1.y, point2.z-point1.z)
+    return mp3.MyPoint3d(point2.x - point1.x, point2.y - point1.y, point2.z - point1.z)
 
 
 def vector_product(point1, point2, point3):
@@ -74,7 +74,7 @@ def is_face_convex(list_points, fix):
     for i in range(2, count):
         if vector_product_2d(list_points[i - 2], list_points[i - 1], list_points[i], fix) >= 0:
             flag = 0
-    if vector_product_2d(list_points[count-2], list_points[count - 1], list_points[0], fix) >= 0:
+    if vector_product_2d(list_points[count - 2], list_points[count - 1], list_points[0], fix) >= 0:
         flag = 0
     if vector_product_2d(list_points[count - 1], list_points[0], list_points[1], fix) >= 0:
         flag = 0
@@ -82,7 +82,7 @@ def is_face_convex(list_points, fix):
 
 
 # Метод получения граней через список точек и индексов граней
-def get_face_from_list_points_and_indexes(list_points, list_indexes):
+def get_faces_from_list_points_and_indexes(list_points, list_indexes):
     list_faces = []
     n = len(list_indexes)
     for i in range(n):
@@ -91,11 +91,25 @@ def get_face_from_list_points_and_indexes(list_points, list_indexes):
         m = len(list_indexes[i])
         for j in range(m):
             points.append(list_points[list_indexes[i][j]])
-            if j < m-1:
-                contour.append(ml3.MyLine3d(list_points[list_indexes[i][j]], list_points[list_indexes[i][j+1]]))
-        contour.append(ml3.MyLine3d(list_points[list_indexes[i][m-1]], list_points[list_indexes[i][0]]))
+            if j < m - 1:
+                contour.append(ml3.MyLine3d(list_points[list_indexes[i][j]], list_points[list_indexes[i][j + 1]]))
+        contour.append(ml3.MyLine3d(list_points[list_indexes[i][m - 1]], list_points[list_indexes[i][0]]))
         list_faces.append(MyFace3d(contour, contour, points))
     return list_faces
+
+
+def get_points_for_diagram_square(face, count):
+    list_points = []
+    p1 = face.lines[0].point1
+    p3 = face.lines[1].point2
+    for i in range(count):
+        x = random.uniform(p1.x, p3.x)
+        y = random.uniform(p1.y, p3.y)
+        z = random.uniform(p1.z, p3.z)
+        print(x, y, z)
+        list_points.append(mp3.MyPoint3d(x, y, z))
+    print(list_points)
+    return list_points
 
 
 # Хранить список смежных граней, пригодится при рандомной генерации фигур
@@ -181,8 +195,8 @@ class MyFace3d:
         while not flag:
             list_points = generate_list_points(first_point, count, fix, fix_x, fix_y, fix_z)
             flag = is_face_convex(list_points, fix)
-        for i in range(0, count-1):
-            self.__contour.append(ml3.MyLine3d(list_points[i], list_points[i+1]))
-        self.__contour.append(ml3.MyLine3d(list_points[count-1], list_points[0]))
+        for i in range(0, count - 1):
+            self.__contour.append(ml3.MyLine3d(list_points[i], list_points[i + 1]))
+        self.__contour.append(ml3.MyLine3d(list_points[count - 1], list_points[0]))
         self.__lines = self.__contour
         self.__points = list_points

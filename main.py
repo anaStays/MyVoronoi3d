@@ -6,6 +6,7 @@ import MyPoint3d as mp3
 import MyLine3d as ml3
 import random
 import MyFace3d as mf3
+import MyFigure3d as mfg3
 
 
 def get_random_color():
@@ -61,33 +62,13 @@ if __name__ == '__main__':
     # draw_points(face.points)
     # draw_lines(face.contour)
     # draw_lines(face.lines)
-
-    list_floats = [
-        -0.500000, 0.500000, 0.500000,  # 0
-        -0.500000, -0.500000, 0.500000,  # 1
-        -0.500000, 0.500000, -0.500000,  # 2
-        -0.500000, -0.500000, -0.500000,  # 3
-        0.500000, 0.500000, 0.500000,  # 4
-        0.500000, -0.500000, 0.500000,  # 5
-        0.500000, 0.500000, -0.500000,  # 6
-        0.500000, -0.500000, -0.500000  # 7
-    ]
-    lp = mf3.get_list_points_from_list_floats(list_floats)
-    list_indexes = [
-        [3, 2, 6, 7],
-        [3, 2, 0, 1],
-        [3, 1, 5, 7],
-        [2, 0, 4, 6],
-        [6, 7, 5, 4],
-        [5, 4, 0, 1]
-    ]
-    list_faces = mf3.get_face_from_list_points_and_indexes(lp, list_indexes)
-    for i in range(len(list_faces)):
-        draw_face(list_faces[i], '#555')
+    cube = mfg3.MyFigure3d()
+    for i in range(len(cube.faces)):
+        draw_face(cube.faces[i])
     # print(lp)
     # print(list_floats)
     # lc = mf3.get_list_contour_from_list_points(lp)
-    draw_points(lp)
+    # draw_points(lp)
     # draw_lines(lc)
     # line = ml3.MyLine3d(list_points[0], list_points[1])
     plt.show()
