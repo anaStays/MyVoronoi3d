@@ -1,6 +1,16 @@
 import random
 
 
+def find_fix(point1, point2, point3):
+    if point1.x == point2.x == point3.x:
+        fix = 0
+    elif point1.y == point2.y == point3.y:
+        fix = 1
+    else:
+        fix = 2
+    return fix
+
+
 def generate_random_points(n: int):
     res = []
     for i in range(n):

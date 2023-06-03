@@ -81,6 +81,39 @@ def is_face_convex(list_points, fix):
     return flag
 
 
+def get_min_max_x(face):
+    min = face.contour[0].point1.x
+    max = face.contour[0].point1.x
+    for i in range(len(face.contour)):
+        if face.contour[i].point1.x > max:
+            max = face.contour[i].point1.x
+        if face.contour[i].point1.x < min:
+            min = face.contour[i].point1.x
+    return min, max
+
+
+def get_min_max_y(face):
+    min = face.contour[0].point1.y
+    max = face.contour[0].point1.y
+    for i in range(len(face.contour)):
+        if face.contour[i].point1.y > max:
+            max = face.contour[i].point1.y
+        if face.contour[i].point1.y < min:
+            min = face.contour[i].point1.y
+    return min, max
+
+
+def get_min_max_z(face):
+    min = face.contour[0].point1.z
+    max = face.contour[0].point1.z
+    for i in range(len(face.contour)):
+        if face.contour[i].point1.z > max:
+            max = face.contour[i].point1.z
+        if face.contour[i].point1.z < min:
+            min = face.contour[i].point1.z
+    return min, max
+
+
 # Метод получения граней через список точек и индексов граней
 def get_faces_from_list_points_and_indexes(list_points, list_indexes):
     list_faces = []
@@ -111,6 +144,9 @@ def get_points_for_diagram_square(face, count):
     print(list_points)
     return list_points
 
+
+def find_fix(face):
+    return mp3.find_fix(face.contour[0].point1, face.contour[1].point1, face.contour[2].point1)
 
 # Хранить список смежных граней, пригодится при рандомной генерации фигур
 class MyFace3d:

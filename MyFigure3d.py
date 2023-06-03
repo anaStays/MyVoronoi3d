@@ -24,9 +24,9 @@ def get_static_cube():
         [5, 4, 0, 1]
     ]
     list_faces = mf3.get_faces_from_list_points_and_indexes(lp, list_indexes)
-    # for i in range(len(list_faces)):
-    #     list_faces[i].points = mf3.get_points_for_diagram_square(list_faces[i], 5)
-    list_faces[0].points = mf3.get_points_for_diagram_square(list_faces[0], 5)
+    for i in range(len(list_faces)):
+        list_faces[i].points = mf3.get_points_for_diagram_square(list_faces[i], 5)
+    # list_faces[0].points = mf3.get_points_for_diagram_square(list_faces[0], 5)
     return list_faces
 
 
