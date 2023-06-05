@@ -1,7 +1,7 @@
 import MyPoint3d as mp3
 import MyLine3d as ml3
 import MyFace3d as mf3
-
+import FunctionsForVoronoi as ffv
 
 def get_static_cube():
     list_floats = [
@@ -28,6 +28,13 @@ def get_static_cube():
         list_faces[i].points = mf3.get_points_for_diagram_square(list_faces[i], 5)
     # list_faces[0].points = mf3.get_points_for_diagram_square(list_faces[0], 5)
     return list_faces
+
+
+def get_diagram_for_figure(figure):
+    list_voronoi_lines = []
+    for i in range(len(figure.faces)):
+        list_voronoi_lines.append(ffv.get_Voronoi_diagram_for_face(figure.faces[i]))
+    return list_voronoi_lines
 
 
 class MyFigure3d:

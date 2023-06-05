@@ -139,14 +139,15 @@ def get_points_for_diagram_square(face, count):
         x = random.uniform(p1.x, p3.x)
         y = random.uniform(p1.y, p3.y)
         z = random.uniform(p1.z, p3.z)
-        print(x, y, z)
+        # print(x, y, z)
         list_points.append(mp3.MyPoint3d(x, y, z))
-    print(list_points)
+    # print(list_points)
     return list_points
 
 
 def find_fix(face):
     return mp3.find_fix(face.contour[0].point1, face.contour[1].point1, face.contour[2].point1)
+
 
 # Хранить список смежных граней, пригодится при рандомной генерации фигур
 class MyFace3d:
@@ -179,7 +180,7 @@ class MyFace3d:
 
     @property
     def lines(self):
-        return self.__contour
+        return self.__lines
 
     @lines.setter
     def lines(self, lines):
